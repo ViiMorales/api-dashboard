@@ -1,0 +1,33 @@
+<head>
+  <title>apiDashboard</title>
+</head>
+
+<body>
+  <h1>Usuarios</h1>
+<ul>
+  {{#each user in users}}
+   <li>{{user.name}}</li>
+   <ul>
+      {{#each account in accounts user._id}}
+      <li>{{account.number}} - <small>{{account.currency}} </small><span>{{toCurrency account.balance.available}}</span></li>
+      {{/each}}
+    </ul>
+  {{/each}}
+</ul>
+
+<h1>Transferencias</h1>
+<div class="history-tl-container">
+  <ul class="tl">
+    {{#each transfer in transfers}}
+     <li class="tl-item">
+      <div class="timestamp">
+        {{{formatDate transfer.createdAt}}}
+      </div>
+      <div class="item-title">{{toCurrency transfer.debitAmount}}<small>{{transfer.debitCurrency}}</small> - <span class="label">#{{accountsGetNumber transfer.debitAccount}}</span> > <span class="label">#{{accountsGetNumber transfer.creditAccount}}</span></div>
+      <div class="item-detail">Transferencia</div>
+    </li>
+    {{/each}}
+  </ul>
+</div>
+
+</body>
